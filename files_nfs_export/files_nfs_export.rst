@@ -12,6 +12,21 @@ In this exercise you will create and test a NFSv4 export, used to support cluste
 Using NFS Exports
 +++++++++++++++++
 
+Enabling NFS Protocol
+.....................
+
+.. note::
+
+   Enabling NFS protocol only needs to be performed once per Files server, and may have already been completed in your environment. If NFS is already enabled, proceed to `Creating the Export`_.
+
+#. In **Prism Element > File Server**, select your file server and click **Protocol Management > Directory Services**.
+
+   .. figure:: images/29b.png
+
+#. Select **Use NFS Protocol** with **Unmanaged** User Management and Authentication, and click **Update**.
+
+   .. figure:: images/30b.png
+
 Creating the Export
 ...................
 
@@ -21,12 +36,12 @@ Creating the Export
 
    - **Name** - logs
    - **Description (Optional)** - File share for system logs
-   - **File Server** - *Initials*\ **-Files**
+   - **File Server** - BootcampFS
    - **Share Path (Optional)** - Leave blank
    - **Max Size (Optional)** - Leave blank
    - **Select Protocol** - NFS
 
-   .. figure:: images/24.png
+   .. figure:: images/24b.png
 
 #. Click **Next**.
 
@@ -39,7 +54,7 @@ Creating the Export
    - Select **+ Add exceptions**
    - **Clients with Read-Write Access** - *The first 3 octets of your cluster network*\ .* (e.g. 10.38.1.\*)
 
-   .. figure:: images/25.png
+   .. figure:: images/25b.png
 
    By default an NFS export will allow read/write access to any host that mounts the export, but this can be restricted to specific IPs or IP ranges.
 
@@ -68,7 +83,7 @@ You will first provision a CentOS VM to use as a client for your Files export.
       - **Image** - CentOS
       - Select **Add**
    - Select **Add New NIC**
-      - **VLAN Name** - Primary
+      - **VLAN Name** - Secondary
       - Select **Add**
 
 #. Click **Save**.
@@ -86,7 +101,7 @@ You will first provision a CentOS VM to use as a client for your Files export.
 
        [root@CentOS ~]# yum install -y nfs-utils #This installs the NFSv4 client
        [root@CentOS ~]# mkdir /filesmnt
-       [root@CentOS ~]# mount.nfs4 <Intials>-Files.ntnxlab.local:/ /filesmnt/
+       [root@CentOS ~]# mount.nfs4 BootcampFS.ntnxlab.local:/ /filesmnt/
        [root@CentOS ~]# df -kh
        Filesystem                      Size  Used Avail Use% Mounted on
        /dev/mapper/centos_centos-root  8.5G  1.7G  6.8G  20% /
@@ -96,7 +111,7 @@ You will first provision a CentOS VM to use as a client for your Files export.
        tmpfs                           1.9G     0  1.9G   0% /sys/fs/cgroup
        /dev/sda1                       494M  141M  353M  29% /boot
        tmpfs                           377M     0  377M   0% /run/user/0
-       *intials*-Files.ntnxlab.local:/             1.0T  7.0M  1.0T   1% /afsmnt
+       BootcampFS.ntnxlab.local:/             1.0T  7.0M  1.0T   1% /afsmnt
        [root@CentOS ~]# ls -l /filesmnt/
        total 1
        drwxrwxrwx. 2 root root 2 Mar  9 18:53 logs
@@ -107,7 +122,7 @@ You will first provision a CentOS VM to use as a client for your Files export.
 
      .. code-block:: bash
 
-       echo 'Intials-Files.ntnxlab.local:/ /filesmnt nfs4' >> /etc/fstab
+       echo 'BootcampFS.ntnxlab.local:/ /filesmnt nfs4' >> /etc/fstab
 
 #. The following command will add 100 2MB files filled with random data to ``/filesmnt/logs``:
 
