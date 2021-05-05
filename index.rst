@@ -6,10 +6,10 @@
   :name: _files_labs
   :hidden:
 
-  files_deploy/files_deploy
   files_smb_share/files_smb_share
   files_nfs_export/files_nfs_export
-  files_expand_cluster/files_expand_cluster
+  files_file_blocking/files_file_blocking
+  files_multiprotocol/files_multiprotocol
 
 .. toctree::
   :maxdepth: 2
@@ -17,9 +17,8 @@
   :name: _file_analytics_labs
   :hidden:
 
-  file_analytics_deploy/file_analytics_deploy
   file_analytics_scan/file_analytics_scan
-  file_analytics_anomaly/file_analytics_anomal
+  file_analytics_anomaly/file_analytics_anomaly
 
 .. toctree::
   :maxdepth: 2
@@ -27,7 +26,9 @@
   :name: _optional_labs
   :hidden:
 
-
+  files_deploy/files_deploy
+  file_analytics_deploy/file_analytics_deploy
+  files_expand_cluster/files_expand_cluster
 
 .. toctree::
   :maxdepth: 2
